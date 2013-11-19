@@ -1,6 +1,6 @@
-# Airbnb JavaScript Style Guide() {
+# Venda JavaScript Style Guide() {
 
-*A mostly reasonable approach to JavaScript*
+*Taken from Airbnb's [mostly reasonable approach to JavaScript](https://github.com/airbnb/javascript)*
 
 
 ## <a name='TOC'>Table of Contents</a>
@@ -169,6 +169,14 @@
     }
     ```
 
+  - To merge one array into another without creating a new array, use `Array#push.apply`.
+
+    ```javascript
+    var arr1 = [1, 2, 3];
+    var arr2 = [4, 5, 6];
+    arr1.push.apply(arr1, arr2); // [1, 2, 3, 4, 5, 6]
+    ```
+
     **[[⬆]](#TOC)**
 
 
@@ -205,7 +213,6 @@
     with this, you would get nowhere \
     fast.';
 
-
     // good
     var errorMessage = 'This is a super long error that ' +
       'was thrown because of Batman.' +
@@ -213,6 +220,18 @@
       'how Batman had anything to do ' +
       'with this, you would get nowhere ' +
       'fast.';
+    ```
+
+  - Instead of line concatenation, you can also use an array to hold the data and use Array#join to join the elements together:
+
+    ```javascript
+    var errorMessage = [
+      'This is a super long error that ',
+      'was thrown because of Batman.',
+      'When you stop to think about ',
+      'how Batman had anything to do ',
+      'with this, you would get nowhere ',
+      'fast.'].join();
     ```
 
   - When programatically building up a string, use Array#join instead of string concatenation. Mostly for IE: [jsPerf](http://jsperf.com/string-vs-array-concat/2).
@@ -358,17 +377,14 @@
 
 ## <a name='variables'>Variables</a>
 
-  - Always use `var` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. Captain Planet warned us of that.
+  - Always use `var` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace.
 
     ```javascript
-    // bad
-    superPower = new SuperPower();
-
     // good
-    var superPower = new SuperPower();
+    var superPower;
     ```
 
-  - Use one `var` declaration for multiple variables and declare each variable on a newline.
+  - Use one `var` declaration for multiple variables and manually hoist them to top of their scope. 1) This will please JSHint, 2) it's a reminder that JS is function-scoped, not block-scoped. 3) It's a quick indicator, based on the number of variables,  of whether the function has become unwieldy and needs to be broken down further. 4) It eliminates cases where `var` hasn't been used.
 
     ```javascript
     // bad
@@ -376,90 +392,16 @@
     var goSportsTeam = true;
     var dragonball = 'z';
 
-    // good
+    // bad
     var items = getItems(),
         goSportsTeam = true,
         dragonball = 'z';
-    ```
-
-  - Declare unassigned variables last. This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
-
-    ```javascript
-    // bad
-    var i, len, dragonball,
-        items = getItems(),
-        goSportsTeam = true;
-
-    // bad
-    var i, items = getItems(),
-        dragonball,
-        goSportsTeam = true,
-        len;
 
     // good
-    var items = getItems(),
-        goSportsTeam = true,
-        dragonball,
-        length,
-        i;
-    ```
-
-  - Assign variables at the top of their scope. This helps avoid issues with variable declaration and assignment hoisting related issues.
-
-    ```javascript
-    // bad
-    function() {
-      test();
-      console.log('doing stuff..');
-
-      //..other stuff..
-
-      var name = getName();
-
-      if (name === 'test') {
-        return false;
-      }
-
-      return name;
-    }
-
-    // good
-    function() {
-      var name = getName();
-
-      test();
-      console.log('doing stuff..');
-
-      //..other stuff..
-
-      if (name === 'test') {
-        return false;
-      }
-
-      return name;
-    }
-
-    // bad
-    function() {
-      var name = getName();
-
-      if (!arguments.length) {
-        return false;
-      }
-
-      return true;
-    }
-
-    // good
-    function() {
-      if (!arguments.length) {
-        return false;
-      }
-
-      var name = getName();
-
-      return true;
-    }
+    var items, goSportsTeam, dragonball;
+    items = getItems();
+    goSportsTeam = true;
+    dragonnall = 'z';
     ```
 
     **[[⬆]](#TOC)**
@@ -633,6 +575,8 @@
 
 
 ## <a name='comments'>Comments</a>
+
+  You do not have to comment everywhere. Only comment sections of code to describe __why__ - not how - you have approached an issue. However, if you do comment follow these critera:
 
   - Use `/** ... */` for multiline comments. Include a description, specify types and values for all parameters and return values.
 
@@ -1008,6 +952,7 @@
     // bad
     var OBJEcttsssss = {};
     var this_is_my_object = {};
+    var this-is-my-object = {};
     function c() {};
     var u = new user({
       name: 'Bob Parr'
@@ -1277,23 +1222,26 @@
   - Always declare `'use strict';` at the top of the module.
 
     ```javascript
-    // fancyInput/fancyInput.js
+    // bare vendaModule description
 
-    !function(global) {
-      'use strict';
+    !function (global) {
 
-      var previousFancyInput = global.FancyInput;
+      function defineVendaModule(Venda, /*dependancies*/) {
+       'use strict';
 
-      function FancyInput(options) {
-        this.options = options || {};
+        function module() {
+
+          // module content
+
+        }
+    
+        return module;
+
       }
 
-      FancyInput.noConflict = function noConflict() {
-        global.FancyInput = previousFancyInput;
-        return FancyInput;
-      };
+      global.Venda = global.Venda || {};
+      global.Venda.module = defineVendaModule(global.Venda, /*dependancies*/);
 
-      global.FancyInput = FancyInput;
     }(this);
     ```
 
@@ -1422,6 +1370,8 @@
 
 **Books**
 
+  - [Free Javascript books, some of which are included below](http://jsbooks.revolunet.com/)
+  - [Eloquent Javascript](http://eloquentjavascript.net/)
   - [JavaScript: The Good Parts](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742) - Douglas Crockford
   - [JavaScript Patterns](http://www.amazon.com/JavaScript-Patterns-Stoyan-Stefanov/dp/0596806752) - Stoyan Stefanov
   - [Pro JavaScript Design Patterns](http://www.amazon.com/JavaScript-Design-Patterns-Recipes-Problem-Solution/dp/159059908X)  - Ross Harmes and Dustin Diaz
@@ -1437,64 +1387,22 @@
 
 **Blogs**
 
+  - [Addy Osmani](http://addyosmani.com/blog/)
+  - [Scoop](http://www.scoop.it/t/javascript-js)
   - [DailyJS](http://dailyjs.com/)
   - [JavaScript Weekly](http://javascriptweekly.com/)
+  - [2ality](http://www.2ality.com/)
   - [JavaScript, JavaScript...](http://javascriptweblog.wordpress.com/)
   - [Bocoup Weblog](http://weblog.bocoup.com/)
   - [Adequately Good](http://www.adequatelygood.com/)
   - [NCZOnline](http://www.nczonline.net/)
   - [Perfection Kills](http://perfectionkills.com/)
   - [Ben Alman](http://benalman.com/)
-  - [Dmitry Baranovskiy](http://dmitry.baranovskiy.com/)
-  - [Dustin Diaz](http://dustindiaz.com/)
   - [nettuts](http://net.tutsplus.com/?s=javascript)
+  - [Rebecca Murphey](http://rmurphey.com/)
+  - [John Resig](http://ejohn.org/)
 
   **[[⬆]](#TOC)**
-
-## <a name='in-the-wild'>In the Wild</a>
-
-  This is a list of organizations that are using this style guide. Send us a pull request or open an issue and we'll add you to the list.
-
-  - **Aan Zee**: [AanZee/javascript](https://github.com/AanZee/javascript)
-  - **Airbnb**: [airbnb/javascript](https://github.com/airbnb/javascript)
-  - **American Insitutes for Research**: [AIRAST/javascript](https://github.com/AIRAST/javascript)
-  - **Compass Learning**: [compasslearning/javascript-style-guide](https://github.com/compasslearning/javascript-style-guide)
-  - **ExactTarget**: [ExactTarget/javascript](https://github.com/ExactTarget/javascript)
-  - **Gawker Media**: [gawkermedia/javascript](https://github.com/gawkermedia/javascript)
-  - **GeneralElectric**: [GeneralElectric/javascript](https://github.com/GeneralElectric/javascript)
-  - **GoodData**: [gooddata/gdc-js-style](https://github.com/gooddata/gdc-js-style)
-  - **Grooveshark**: [grooveshark/javascript](https://github.com/grooveshark/javascript)
-  - **How About We**: [howaboutwe/javascript](https://github.com/howaboutwe/javascript)
-  - **Mighty Spring**: [mightyspring/javascript](https://github.com/mightyspring/javascript)
-  - **MinnPost**: [MinnPost/javascript](https://github.com/MinnPost/javascript)
-  - **ModCloth**: [modcloth/javascript](https://github.com/modcloth/javascript)
-  - **National Geographic**: [natgeo/javascript](https://github.com/natgeo/javascript)
-  - **National Park Service**: [nationalparkservice/javascript](https://github.com/nationalparkservice/javascript)
-  - **Razorfish**: [razorfish/javascript-style-guide](https://github.com/razorfish/javascript-style-guide)
-  - **Shutterfly**: [shutterfly/javascript](https://github.com/shutterfly/javascript)
-  - **Userify**: [userify/javascript](https://github.com/userify/javascript)
-  - **Zillow**: [zillow/javascript](https://github.com/zillow/javascript)
-  - **ZocDoc**: [ZocDoc/javascript](https://github.com/ZocDoc/javascript)
-
-## <a name='translation'>Translation</a>
-
-  This style guide is also available in other languages:
-
-  - :de: **German**: [timofurrer/javascript-style-guide](https://github.com/timofurrer/javascript-style-guide)
-  - :jp: **Japanese**: [mitsuruog/javacript-style-guide](https://github.com/mitsuruog/javacript-style-guide)
-  - :br: **Portuguese**: [armoucar/javascript-style-guide](https://github.com/armoucar/javascript-style-guide)
-  - :cn: **Chinese**: [adamlu/javascript-style-guide](https://github.com/adamlu/javascript-style-guide)
-  - :es: **Spanish**: [paolocarrasco/javascript-style-guide](https://github.com/paolocarrasco/javascript-style-guide)
-  - :kr: **Korean**: [tipjs/javascript-style-guide](https://github.com/tipjs/javascript-style-guide)
-
-## <a name='guide-guide'>The JavaScript Style Guide Guide</a>
-
-  - [Reference](https://github.com/airbnb/javascript/wiki/The-JavaScript-Style-Guide-Guide)
-
-## <a name='authors'>Contributors</a>
-
-  - [View Contributors](https://github.com/airbnb/javascript/graphs/contributors)
-
 
 ## <a name='license'>License</a>
 
