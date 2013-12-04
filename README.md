@@ -1307,6 +1307,26 @@
     $sidebar.find('ul');
     ```
 
+  - Avoid universal selectors
+
+    ```javascript
+    // bad
+    $('.container > *'); 
+
+    // better
+    $('.container').children();
+    ```
+
+  - Avoid implied universal selectors
+
+    ```javascript
+    // bad
+    $('.someclass :radio'); 
+
+    // better
+    $('.someclass input:radio');
+    ```
+
     **[[⬆]](#TOC)**
 
 
@@ -1401,6 +1421,10 @@
   - [nettuts](http://net.tutsplus.com/?s=javascript)
   - [Rebecca Murphey](http://rmurphey.com/)
   - [John Resig](http://ejohn.org/)
+
+**Other**
+
+  - [Stack Overflow Javascript questions and answers](http://stackoverflow.com/questions/tagged/javascript)
 
   **[[⬆]](#TOC)**
 
