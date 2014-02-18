@@ -1226,9 +1226,9 @@
     // bare vendaModule description
 
     !function(global) {
+      'use strict';
 
       function defineModule(/* dependancies */) {
-       'use strict';
 
         var module = {
 
