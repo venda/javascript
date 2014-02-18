@@ -1225,7 +1225,7 @@
     ```javascript
     // bare vendaModule description
 
-    !function (global) {
+    !function(global) {
 
       function defineModule(/* dependancies */) {
        'use strict';
