@@ -26,6 +26,7 @@
   1. [Events](#events)
   1. [Modules](#modules)
   1. [jQuery](#jquery)
+  1. [CoffeeScript](#coffeescript)
   1. [ES5 Compatibility](#es5)
   1. [Testing](#testing)
   1. [Performance](#performance)
@@ -1226,10 +1227,10 @@
 
     !function (global) {
 
-      function defineVendaModule(Venda, /*dependancies*/) {
+      function defineModule(/* dependancies */) {
        'use strict';
 
-        function module() {
+        var module = {
 
           // module content
 
@@ -1239,8 +1240,13 @@
 
       }
 
-      global.Venda = global.Venda || {};
-      global.Venda.module = defineVendaModule(global.Venda, /*dependancies*/);
+      if (typeof exports === 'object') {
+        module.exports = defineModule(/* dependancies */);
+      } else if (typeof define === 'function' && define.amd) {
+        define([/* dependancies */], defineModule);
+      } else {
+        global.modulename = defineModule(/* dependancies */);
+      }
 
     }(this);
     ```
@@ -1330,6 +1336,13 @@
     **[[⬆]](#TOC)**
 
 
+## <a name='coffeescript'>CoffeeScript</a>
+
+  - Banned.
+
+  **[[⬆]](#TOC)**
+
+
 ## <a name='es5'>ECMAScript 5 Compatibility</a>
 
   - Refer to [Kangax](https://twitter.com/kangax/)'s ES5 [compatibility table](http://kangax.github.com/es5-compat-table/)
@@ -1386,12 +1399,15 @@
 **Further Reading**
 
   - [Understanding JavaScript Closures](http://javascriptweblog.wordpress.com/2010/10/25/understanding-javascript-closures/) - Angus Croll
+  - [How do JavaScript closures work?](http://stackoverflow.com/questions/111102/how-do-javascript-closures-work) - Stack Overflow answer
   - [Basic JavaScript for the impatient programmer](http://www.2ality.com/2013/06/basic-javascript.html) - Dr. Axel Rauschmayer
+  - [Debugging jQuery](http://fixingthesejquery.com/)
 
 **Books**
 
   - [Free Javascript books, some of which are included below](http://jsbooks.revolunet.com/)
   - [Eloquent Javascript](http://eloquentjavascript.net/)
+  - [Object Oriented JavaScript](http://edc.tversu.ru/elib/inf/0230.pdf) - PDF.
   - [JavaScript: The Good Parts](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742) - Douglas Crockford
   - [JavaScript Patterns](http://www.amazon.com/JavaScript-Patterns-Stoyan-Stefanov/dp/0596806752) - Stoyan Stefanov
   - [Pro JavaScript Design Patterns](http://www.amazon.com/JavaScript-Design-Patterns-Recipes-Problem-Solution/dp/159059908X)  - Ross Harmes and Dustin Diaz
