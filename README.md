@@ -1336,7 +1336,7 @@
     **[[⬆]](#TOC)**
 
 
-## <a name='coffeescript'>CoffeeScript</a>
+## <a name='coffeescript'>CoffeeScript and other transpilers</a>
 
   - Banned.
 
