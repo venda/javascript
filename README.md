@@ -1,4 +1,4 @@
-# Venda JavaScript Code Conventions() {
+# Venda JavaScript Code Conventions
 
 _Adapted from Airbnb's [mostly reasonable approach to JavaScript](https://github.com/airbnb/javascript), and [Douglas Crockford's code conventions list](http://javascript.crockford.com/code.html)_
 
@@ -1504,5 +1504,3 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 **[[⬆]](#TOC)**
-
-# };
