@@ -1,10 +1,10 @@
-# Venda JavaScript Style Guide() {
+# Venda JavaScript Code Conventions() {
 
-*Taken from Airbnb's [mostly reasonable approach to JavaScript](https://github.com/airbnb/javascript)*
-
+_Adapted from Airbnb's [mostly reasonable approach to JavaScript](https://github.com/airbnb/javascript), and [Douglas Crockford's code conventions list](http://javascript.crockford.com/code.html)_
 
 ## <a name='TOC'>Table of Contents</a>
 
+  1. [Introduction](#introduction)
   1. [Types](#types)
   1. [Objects](#objects)
   1. [Arrays](#arrays)
@@ -17,6 +17,7 @@
   1. [Blocks](#blocks)
   1. [Comments](#comments)
   1. [Whitespace](#whitespace)
+  1. [Line length](#linelength)
   1. [Commas](#commas)
   1. [Semicolons](#semicolons)
   1. [Type Casting & Coercion](#type-coercion)
@@ -36,6 +37,10 @@
   1. [The JavaScript Style Guide Guide](#guide-guide)
   1. [Contributors](#contributors)
   1. [License](#license)
+
+## <a name='introduction'>Introduction</a>
+
+The long-term value of software to an organization is in direct proportion to the quality of the code-base. Over its lifetime a program will be handled by many pairs of hands and eyes. If a program is able to clearly communicate its structure and characteristics it is less likely that it will break when modified in the future. Code conventions can help in reducing the brittleness of programs.
 
 ## <a name='types'>Types</a>
 
@@ -577,7 +582,11 @@
 
 ## <a name='comments'>Comments</a>
 
+  The comments should be well-written and clear, just like the code they are annotating. It is important that comments be kept up-to-date. Erroneous comments can make programs even harder to read and understand.
+
   You do not have to comment everywhere. Only comment sections of code to describe __why__ - not how - you have approached an issue. However, if you do comment follow these critera:
+
+  - Do not put personal information like names or email addresses in comments.
 
   - Use `/** ... */` for multiline comments. Include a description, specify types and values for all parameters and return values.
 
@@ -611,6 +620,8 @@
     }
     ```
 
+  - The easiest way to add multiline comments is with the [Sublime Text DocBlockr plugin](https://github.com/spadgos/sublime-jsdocs). Any time you want to add a multiline comment type create a new line above the code and type `/**<return>`. If you do this above a function the comment will pre-populate with any arguments that are used in the function. All you need to do is update the comment with the correct information.
+
   - Use `//` for single line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment.
 
     ```javascript
@@ -640,6 +651,18 @@
       return type;
     }
     ```
+
+  - All new JavaScript files, whether modules or not, should have a descriptor at the top that gives the name, description, and a list of dependancies where applicable:
+
+    ```javascript
+      /*!
+       * [module name]
+       * [description]
+       * [dependencies]
+       */
+    ```
+
+  - The ! explains that this section of commentary should not be removed during the minification process – useful for keeping Venda copyright information in the code where necessary.
 
   - Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you're pointing out a problem that needs to be revisited, or if you're suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `FIXME -- need to figure this out` or `TODO -- need to implement`.
 
@@ -762,6 +785,14 @@
         .attr('transform', 'translate(' + (radius + margin) + ',' + (radius + margin) + ')')
         .call(tron.led);
     ```
+
+    **[[⬆]](#TOC)**
+
+## <a name='linelength'>Line length</a>
+
+  - Lines of code should exceed 80 characters in length. This is too ensure a clean look, and also so that it fits in GitHub's preview window properly without requiring the need to scroll along (there are no scrollbars). The rulers will appear when the [Venda Sublime Text preferences](https://github.com/venda/VendaSublimeText) are downloaded an deployed.
+
+  - If your code exceeds 80 characters in length it will need to be refactored in accordance with this code convention document.
 
     **[[⬆]](#TOC)**
 
@@ -1235,7 +1266,7 @@
           // module content
 
         }
-    
+
         return module;
 
       }
@@ -1317,7 +1348,7 @@
 
     ```javascript
     // bad
-    $('.container > *'); 
+    $('.container > *');
 
     // better
     $('.container').children();
@@ -1327,7 +1358,7 @@
 
     ```javascript
     // bad
-    $('.someclass :radio'); 
+    $('.someclass :radio');
 
     // better
     $('.someclass input:radio');
@@ -1441,6 +1472,9 @@
 **Other**
 
   - [Stack Overflow Javascript questions and answers](http://stackoverflow.com/questions/tagged/javascript)
+  - [Article on comments](http://everything2.com/index.pl?node_id=1709851&displaytype=printable)
+  - [Article on comments](http://blog.codinghorror.com/when-good-comments-go-bad/)
+  - [Article on comments](http://blog.codinghorror.com/code-tells-you-how-comments-tell-you-why/)
 
   **[[⬆]](#TOC)**
 
@@ -1472,4 +1506,3 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **[[⬆]](#TOC)**
 
 # };
-
