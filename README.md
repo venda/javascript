@@ -1,4 +1,4 @@
-# Venda JavaScript Code Conventions
+# Venda JavaScript Style Guide and Code Conventions
 
 _Adapted from Airbnb's [mostly reasonable approach to JavaScript](https://github.com/airbnb/javascript), and [Douglas Crockford's code conventions list](http://javascript.crockford.com/code.html)_
 
