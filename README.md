@@ -790,7 +790,7 @@ The long-term value of software to an organization is in direct proportion to th
 
 ## <a name='linelength'>Line length</a>
 
-  - Lines of code should exceed 80 characters in length. This is too ensure a clean look, and also so that it fits in GitHub's preview window properly without requiring the need to scroll along (there are no scrollbars). The rulers will appear when the [Venda Sublime Text preferences](https://github.com/venda/VendaSublimeText) are downloaded an deployed.
+  - Lines of code should not exceed 80 characters in length. This is too ensure a clean look, and also so that it fits in GitHub's preview window properly without requiring the need to scroll along (there are no scrollbars). The rulers will appear when the [Venda Sublime Text preferences](https://github.com/venda/VendaSublimeText) are downloaded an deployed.
 
   - If your code exceeds 80 characters in length it will need to be refactored in accordance with this code convention document.
 
