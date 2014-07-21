@@ -1256,30 +1256,31 @@ The long-term value of software to an organization is in direct proportion to th
     ```javascript
     // bare vendaModule description
 
-    !function(global) {
+    !function (global, moduleDefinition) {
       'use strict';
 
-      function defineModule(/* dependancies */) {
+      /**
+       * Ensure that the dependencies are correctly identified here,
+       * and also as arguments to the moduleDefinition.
+       */
+      var dependencies = [];
 
-        var module = {
-
-          // module content
-
-        }
-
-        return module;
-
-      }
-
-      if (typeof exports === 'object') {
-        module.exports = defineModule(/* dependancies */);
-      } else if (typeof define === 'function' && define.amd) {
-        define([/* dependancies */], defineModule);
+      if (typeof define === 'function' && define.amd) {
+        define(dependencies, moduleDefinition);
+      } else if (typeof exports === 'object') {
+        module.exports = moduleDefinition.apply(null, dependencies);
       } else {
-        global.modulename = defineModule(/* dependancies */);
+        global.Venda.Utilities = moduleDefinition.apply(null, dependencies);
       }
 
-    }(this);
+    }(this, function () {
+      'use strict';
+
+      var Utilities = {};
+
+      return Utilities;
+
+    });
     ```
 
     **[[⬆]](#TOC)**
